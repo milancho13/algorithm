@@ -39,6 +39,15 @@ if ($key) {
     //var_dump($list[$key]);
 }
 
+echo '探索のテスト';
+echo '5の探索テスト';
+$searchingValue = 5;
+$key = $chainHashBox->search($searchingValue);
+if ($key) {
+    echo $searchingValue . 'はlist[' . $key . ']に格納されています。';
+    //var_dump($list[$key]);
+}
+
 echo '</pre>';
 
 ?>
