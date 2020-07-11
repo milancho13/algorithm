@@ -51,7 +51,7 @@ class ChainHashBox
             //echo $address;
         }
         while ($address != null) {
-            echo "a";
+            //echo "a";
             if ($address->getValue() == $value) {
                 echo "b";
                 return false;
