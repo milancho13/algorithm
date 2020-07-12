@@ -1,70 +1,45 @@
  <?php
 
 
-function binarySearch($arr, $key, $start, $end)
+function binarySearch($arr, $l, $r, $x)
 {
-    $query = 0;
+    while ($l <= $r) {
 
-    //初めて
-    if ($query = 0) {
-        $cnt = count($arr);
-        //echo $cnt . "<br>";
-    
-        //真ん中を割り出す
-        $mid = floor($cnt / 2);
-        echo $mid . "<br>";
-        // echo $arr[$mid];
+        //calculate middle value
+        $mid = $l + ($r-$l) /2 ; //★
+
+        //check if x is present at mid
+        if ($arr[$mid] == $x) {
+            return floor($mid);
+        }
+        
+        //if x is greater, ignore left half
+        if ($arr[$mid] < $x) {
+            $l = $mid + 1; //★ right next to middle would be the first value
+        //echo $l;
+        } else { //if x is smaller, ignore right half
+            $r = $mid - 1; //★ left next to middle would be the last value
+        }
     }
-
-    //2回目以降
-    if ($query != 0) {
-        $base = $cnt;
-        $cnt = count($arr);
-        //echo $cnt . "<br>";
-
-        //真ん中を割り出す
-        $mid = floor($cnt / 2) + $base;
-        echo $mid . "<br>";
-    }
-
-    //真ん中だったら
-    if ($arr[$mid] === $key) {
-        //echo "s";
-        return $arr[$mid];
-    }
-
-    //真ん中より大きかったら
-    if ((int)$arr[$mid] < $key) {
-        //echo "aaa";
-        //arrの左側を捨てる
-        $arr = range((int)$arr[$mid], $end, 1);
-        //print_r($arr);
-        return binarySearch($arr, $key, $start, $end);
-    }
-
-    //真ん中より小さかったら
-    if ($key <= $arr[$mid]) {
-        //echo "b";
-        //arrの右側を捨てる
-        $arr = range($start, (int)$arr[$mid], 1);
-        return binarySearch($arr, $key, $start, $end);
-    }
-
-    return false;
+    return -1;
 }
 
-$key = 7;
-$start = 1;
-$end = 10;
+//array
+$arr = array(2, 3, 4, 10, 40);
 
-$arr = range($start, $end, 1);
-//print_r($arr);
+//counf array
+$n = count($arr);
 
-//echo "given data is" . $key . "</br>";
+//target
+$x = 10;
 
-$result = binarySearch($arr, $key, $start, $end);
-// if (!$result) {
-//     echo "element is not in this array";
-// } else {
-//     echo "element is at index at " . $result;
-// }
+//call binarySearch function
+$result = binarySearch($arr, 0, $n-1, $x);
+
+echo "given data is " . $x . "</br>";
+
+if ($result == -1) {
+    echo "element is not in this array";
+} else {
+    echo "element is at index at " . $result;
+}
