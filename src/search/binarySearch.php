@@ -1,45 +1,45 @@
-<?php
+ <?php
 
-/*
-* Binary Search
-*
-*
-*/
 
-/*
-* whether 95400 is in array
-*/
+function binarySearch($arr, $l, $r, $x)
+{
+    while ($l <= $r) {
 
-//create array
-$list = range(0, 100000, 1);
+        //calculate middle value
+        $mid = $l + ($r-$l) /2 ; //★
 
-$startTime = microtime(true);
-$listCount = count($list);
-
-define('SEARCHINGVALUE', 95400);
-
-$firstIndex  = 0;
-$lastIndex   = $listCount - 1;
-
-$isFind = false;
-
-do {
-    $centerIndex = (int) (($firstIndex + $lastIndex) / 2);
-    if ($list[$centerIndex] == SEARCHINGVALUE) {
-        $isFind = true;
-        echo "found. The key id is " . $centerIndex;
-        break;
-    } else if ($list[$centerIndex] < SEARCHINGVALUE) {
-        $firstIndex = $centerIndex + 1;
-    } else if ($list[$centerIndex] > SEARCHINGVALUE) {
-        $lastIndex = $centerIndex - 1;
+        //check if x is present at mid
+        if ($arr[$mid] == $x) {
+            return floor($mid);
+        }
+        
+        //if x is greater, ignore left half
+        if ($arr[$mid] < $x) {
+            $l = $mid + 1; //★ right next to middle would be the first value
+        //echo $l;
+        } else { //if x is smaller, ignore right half
+            $r = $mid - 1; //★ left next to middle would be the last value
+        }
     }
-} while ($firstIndex <= $lastIndex);
-
-if (!$isFind) {
-    echo 'not found';
+    return -1;
 }
 
-$endTime = microtime(true);
-$deltaTime = $endTime - $startTime;
-echo ('<br>処理にかかった時間は' . $deltaTime . 'ミリ秒です');
+//array
+$arr = array(2, 3, 4, 10, 40);
+
+//counf array
+$n = count($arr);
+
+//target
+$x = 10;
+
+//call binarySearch function
+$result = binarySearch($arr, 0, $n-1, $x);
+
+echo "given data is " . $x . "</br>";
+
+if ($result == -1) {
+    echo "element is not in this array";
+} else {
+    echo "element is at index at " . $result;
+}
